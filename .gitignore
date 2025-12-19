@@ -1,0 +1,12 @@
+# OS/editor
+.DS_Store
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Data artifacts (keep raw/sample data in dataset/)
+outputs/
+runs/

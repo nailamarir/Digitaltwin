@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "DigitalTwin",
+			"path": "."
+		},
+		{
+			"name": "SaraProject",
+			"path": "../SaraProject"
+		}
+	],
+	"settings": {}
+}
