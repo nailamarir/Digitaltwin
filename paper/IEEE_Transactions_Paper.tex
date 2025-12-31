@@ -130,8 +130,8 @@ The TurbTwin framework comprises two primary components: the Physical Twin repre
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/DigitalTwin.jpg}
-\caption{TurbTwin architectural framework showing the integration between Physical Twin (real-world system) and Digital Twin (AI-driven computational model) components.}
+\includegraphics[width=0.85\textwidth]{figures/fig6_architecture.png}
+\caption{TurbTwin architectural framework showing the integration between Physical Twin (real-world system) and Digital Twin (AI-driven computational model) components, including data flow from CFD simulation through the ensemble learning pipeline to final predictions with uncertainty quantification.}
 \label{fig:architecture}
 \end{figure*}
 
@@ -254,7 +254,14 @@ $t_{norm}$ & $t / t_{max}$ & Normalized time \\
 \end{tabular}
 \end{table}
 
-The engineered features expand the original 4-dimensional input space ($T_{inlet}$, $T_{initial}$, $V_{initial}$, $t$) to a 10-dimensional representation capturing nonlinear relationships and physics-based interactions.
+The engineered features expand the original 4-dimensional input space ($T_{inlet}$, $T_{initial}$, $V_{initial}$, $t$) to a 10-dimensional representation capturing nonlinear relationships and physics-based interactions. Fig.~\ref{fig:features} illustrates the feature importance analysis across different models.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.48\textwidth]{figures/fig4_feature_importance.png}
+\caption{Physics-informed feature importance analysis: (a) Feature importance scores across XGBoost, LightGBM, and Random Forest models, (b) Ensemble-averaged feature importance ranking showing the dominance of temperature-related features.}
+\label{fig:features}
+\end{figure}
 
 \subsection{Base Model Architecture}
 
@@ -419,11 +426,18 @@ Experiments were conducted on a system with Intel Core i7 processor, 32GB RAM, r
 \subsubsection{Dataset Description}
 The dataset comprises:
 \begin{itemize}
-    \item \textbf{Training Set}: 2,000+ samples generated from validated CFD simulations covering diverse operational conditions
+    \item \textbf{Training Set}: 6,465 samples generated from validated CFD simulations covering diverse operational conditions
     \item \textbf{Test Set}: Experimental measurements from the physical turbulent jet setup
 \end{itemize}
 
-Input features include inlet temperature ($T_{inlet}$, K), initial temperature ($T_{initial}$, K), initial velocity ($V_{initial}$, m/s), and time step (s). The target variable is the temperature field evolution.
+Input features include inlet temperature ($T_{inlet}$, K), initial temperature ($T_{initial}$, K), initial velocity ($V_{initial}$, m/s), and time step (s). The target variable is the temperature field evolution. Fig.~\ref{fig:data_dist} presents the training data distribution and feature correlations.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig1_data_distribution.png}
+\caption{Training data distribution and characteristics: (a) Temperature evolution over time for different inlet conditions, (b) Velocity distribution histogram, (c) Temperature-velocity interaction heatmap showing mean outlet temperature, (d) Feature correlation matrix revealing strong dependencies between thermal features.}
+\label{fig:data_dist}
+\end{figure*}
 
 \subsubsection{Evaluation Metrics}
 Performance is evaluated using:
@@ -478,7 +492,14 @@ Trimmed Mean & 0.3712 & 0.3156 & 0.8689 \\
 \end{tabular}
 \end{table}
 
-The TurbTwin ensemble achieves the highest R\textsuperscript{2} score of 0.8853, representing a 4.8\% improvement over the best individual model (XGBoost with R\textsuperscript{2} = 0.8699). The ensemble also achieves the lowest MAE of 0.2627~K, indicating more consistent predictions across the temperature range.
+The TurbTwin ensemble achieves the highest R\textsuperscript{2} score of 0.8853, representing a 4.8\% improvement over the best individual model (XGBoost with R\textsuperscript{2} = 0.8699). The ensemble also achieves the lowest MAE of 0.2627~K, indicating more consistent predictions across the temperature range. Fig.~\ref{fig:model_comparison} provides a visual comparison of model performance metrics.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig2_model_comparison.png}
+\caption{Comprehensive model performance comparison: (a) Root Mean Square Error (RMSE) showing XGBoost's competitive performance, (b) Mean Absolute Error (MAE) where TurbTwin achieves the lowest value, (c) Coefficient of Determination (R\textsuperscript{2}) demonstrating ensemble superiority with the dashed line indicating TurbTwin's performance.}
+\label{fig:model_comparison}
+\end{figure*}
 
 \subsubsection{Ensemble Strategy Comparison}
 
@@ -502,16 +523,25 @@ Inverse-RMSE Weighting & 0.3521 & \checkmark \\
 \end{tabular}
 \end{table}
 
+Fig.~\ref{fig:ensemble_strategies} presents a comprehensive analysis of ensemble strategies including weight optimization convergence and the final optimized model weights.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig3_ensemble_strategies.png}
+\caption{Ensemble strategy analysis: (a) RMSE comparison across five combination strategies, (b) R\textsuperscript{2} score comparison showing optimized L2 weighting achieves best performance, (c) Pie chart of optimized model weights with XGBoost receiving highest weight (35\%), (d) Weight convergence during L2-regularized optimization showing stabilization within 50 iterations.}
+\label{fig:ensemble_strategies}
+\end{figure*}
+
 \subsubsection{Uncertainty Quantification Results}
 
-The epistemic uncertainty estimation achieved 95\% prediction interval coverage probability (PICP) of 94.2\%, demonstrating well-calibrated uncertainty bounds. Fig.~\ref{fig:results} illustrates the prediction performance and uncertainty visualization.
+The epistemic uncertainty estimation achieved 95\% prediction interval coverage probability (PICP) of 94.2\%, demonstrating well-calibrated uncertainty bounds. Fig.~\ref{fig:uncertainty} presents comprehensive uncertainty quantification results.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.48\textwidth]{../results/turbtwin_final.png}
-\caption{TurbTwin prediction results: (a) RMSE comparison, (b) Predictions vs. ground truth, (c) R\textsuperscript{2} scores, (d) Uncertainty bounds, (e) Residual analysis, (f) Error distribution.}
-\label{fig:results}
-\end{figure}
+\includegraphics[width=0.95\textwidth]{figures/fig5_uncertainty.png}
+\caption{Uncertainty quantification analysis: (a) Predictions with 95\% confidence intervals showing well-bounded estimates, (b) Uncertainty calibration plot demonstrating near-perfect alignment with expected coverage, (c) Residual distribution following normal distribution centered at zero, (d) Correlation between prediction interval width and absolute error validating uncertainty estimates.}
+\label{fig:uncertainty}
+\end{figure*}
 
 Key uncertainty quantification findings:
 \begin{itemize}
@@ -531,6 +561,28 @@ The error distribution analysis reveals:
 \end{itemize}
 
 The close agreement between mean and median errors indicates symmetric error distribution without significant bias.
+
+\subsubsection{Temporal Dynamics Analysis}
+
+The framework's ability to capture temporal dynamics is critical for real-time digital twin applications. Fig.~\ref{fig:temporal} presents temporal prediction performance across different operating conditions.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig7_temporal.png}
+\caption{Temporal dynamics analysis: (a) Time series prediction accuracy comparing actual vs. predicted temperatures for two operating cases, (b) Absolute prediction error evolution over time showing consistent performance, (c) 5-step rolling RMSE demonstrating stable prediction quality, (d) Phase space trajectory comparison validating the model's ability to capture temperature dynamics.}
+\label{fig:temporal}
+\end{figure*}
+
+\subsubsection{Physics Constraint Validation}
+
+Fig.~\ref{fig:physics} validates that predictions satisfy physical constraints, ensuring thermodynamically consistent outputs.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.48\textwidth]{figures/fig8_physics.png}
+\caption{Physics constraint validation: (a) Temperature bound validation showing 98\% of predictions within physical limits defined by $T_{inlet}$ and $T_{initial}$, (b) Velocity-temperature coupling demonstrating physically consistent heat transfer relationships across different temperature gradients.}
+\label{fig:physics}
+\end{figure}
 
 \subsection{Comparative Analysis}
 
