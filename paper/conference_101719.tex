@@ -1,0 +1,310 @@
+
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage[left]{lineno} % Load lineno package for line numbering
+\usepackage[utf8]{inputenc}
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{lipsum} % Optional, for generating dummy text
+%% The lineno packages add line numbers. Start line numbering with
+%% \linenumbers, end it with \nolinenumbers. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+% \journal{Sustainable Water Resources Management}
+\usepackage{float}
+
+% Adjust the distance between the line numbers and the text
+\setlength{\linenumbersep}{50pt} % Decrease this value to move numbers further left
+
+\begin{document}
+
+\linenumbers % Enable line numbering
+\modulolinenumbers[1] % Ensure continuous numbering
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+\title{Physics-Informed Machine Learning Digital Twin  for Thermal Turbulent Jet Temperature Prediction}
+
+\author[inst1]{Narjisse Kabbaj}
+
+\affiliation[inst1]{organization={Electrical and Computer Engineering Department, College of Engineering},%Department and Organization
+            addressline={Effat University}, 
+            city={Jeddah},
+            postcode={21478}, 
+            country={Saudi Arabia,},
+            designation={    }}
+
+\author[inst2]{Naila Marir}
+
+\affiliation[inst2]{organization={Computer Science, College of Engineering},%Department and Organization
+            addressline={Effat University}, 
+            city={Jeddah},
+            postcode={21478}, 
+            country={Saudi Arabia,},
+            designation={    }}
+
+\author[inst3]{Mohamed F. El-Amin}
+\affiliation[inst3]{organization={Energy and Technology Research Center, College of Engineering},%Department and Organization
+            addressline={Effat University}, 
+            city={Jeddah},
+            postcode={21478}, 
+            country={Saudi Arabia,},
+            designation={      }}
+            
+
+
+\begin{abstract}
+
+
+
+
+\end{abstract}
+
+
+
+
+\begin{keyword}
+
+
+\end{keyword}
+
+
+\end{frontmatter}
+
+
+\section{Introduction}
+
+\section{Related Work}
+
+
+The concept of Digital Twin (DT) has evolved dramatically from its initial conceptualization to become a cornerstone of Industry 4.0. The foundational work introducing DTs in the context of NASA and Air Force vehicles~\cite{glaessgen2012digital} established the groundwork for virtual system replication, which was further developed through emphasis on manufacturing autonomy~\cite{rosen2015importance}. The theoretical understanding expanded through comprehensive reviews examining semantic construction applications~\cite{boje2020construction} and manufacturing implementations~\cite{kritzinger2018digital}. Integration of DTs into cyber-physical production systems~\cite{uhlemann2017digital} marked a significant advancement in industrial applications, building upon initial product lifecycle management concepts~\cite{grieves2005product}. This theoretical framework was enhanced by establishing correlations between digital twins and cyber-physical systems, particularly in smart manufacturing contexts~\cite{tao2017digital}, leading to refined distinctions between models and digital twins~\cite{wright2020tell}. Subsequent work has focused on characterizing digital twins~\cite{jones2020characterising}, establishing standardization approaches~\cite{haag2018digital}, and developing frameworks for implementation~\cite{vanderhorn2021digital}.
+
+As the theoretical foundation of digital twins matured, industrial applications began demonstrating significant practical impact across various sectors. Manufacturing processes involving complex systems have seen extensive DT implementation~\cite{tao2018digital}, while comprehensive reviews have documented applications across diverse industries~\cite{singh2022applications}. The construction industry has benefited from these developments through building system optimization~\cite{opoku2021digital,tuhaise2023technologies}, and the energy sector has particularly advanced through DT implementation in power plant systems~\cite{sleiti2022digital}. Maintenance applications have shown significant progress~\cite{errandonea2020digital}, with data fusion playing a crucial role in predictive maintenance strategies~\cite{liu2018role}. Digital twin networks have emerged as a crucial development~\cite{wu2021digital}, enabling better integration and communication between different system components~\cite{zhang2021comprehensive}.
+
+The transition from industrial applications to more sophisticated modeling approaches has been marked by significant developments in physics-based digital twins. Component-based reduced-order models~\cite{kapteyn2022data} have enhanced system modeling capabilities, while the integration of machine learning with physics-based modeling has shown promising results~\cite{ritto2021digital}. Advanced frameworks combining neural networks with physics-based models~\cite{sun2022physinet} have improved prediction accuracy, and physics-based digital twins have been successfully implemented in predictive control systems~\cite{mcclellan2022physics}. These developments have particularly benefited thermal and fluid systems, where physics-based modeling is essential for accurate system representation~\cite{aivaliotis2019methodology,glatt2021modeling}.
+
+Building upon these physics-based foundations, fluid mechanics applications of digital twins have evolved to handle increasingly complex systems. The simulation aspects of digital twins~\cite{boschert2016digital} provided a crucial framework for fluid dynamics applications, which has been further refined through various modeling approaches~\cite{tao2022digital}. Machine learning-based digital twins for dynamical systems~\cite{chakraborty2021machine} and physics-based compressive sensing~\cite{lu2021physics} have enhanced the capability to model complex fluid behaviors. Digital twin modeling techniques have advanced significantly~\cite{tao2021digital}, incorporating both data-driven and physics-based approaches~\cite{kapteyn2020physics}. These advancements have enabled more accurate representation of complex flow phenomena~\cite{yang2021physics}, particularly beneficial for turbulent jet applications.
+
+The integration of Computational Fluid Dynamics (CFD) with digital twins represents perhaps the most significant advancement for applications involving complex flow systems. The combination of data analytics with CFD models~\cite{molinaro2021embedding} has enhanced the ability to simulate and predict complex flow behaviors. Specific applications in fluid blending~\cite{thomas2021cfd} and combustion systems~\cite{aversano2021digital} have demonstrated the effectiveness of CFD-based digital twins in handling complex flow phenomena. Recent developments in CFD-FEM integration~\cite{nouzil2023numerical} have further expanded the capabilities of digital twins in modeling high-temperature applications. The advancement of simulation techniques~\cite{boschert2018next} and integration with machine learning~\cite{gardner2020towards} has particularly benefited applications involving turbulent flows and heat transfer~\cite{semeraro2021digital}.
+
+The present work on developing a digital twin for thermal turbulent jets builds upon these foundational developments while addressing several key challenges identified in the literature. Our approach combines the robust physics-based modeling demonstrated in recent studies with advanced machine learning techniques to enhance prediction accuracy in turbulent flow conditions. By integrating CFD simulations with real-time data analytics, our work addresses the need for improved modeling of multi-scale phenomena in turbulent flows while maintaining computational efficiency.
+
+The field continues to evolve, with recent developments focusing on industry-specific applications~\cite{javaid2023digital,tuhaise2023technologies} and enhanced modeling capabilities~\cite{qi2021enabling}. Current challenges in applying digital twins to thermal turbulent jets include the need for enhanced real-time data integration, improved handling of multi-scale phenomena, and more robust approaches for combining physics-based models with machine learning techniques. These challenges, particularly relevant to high-temperature flows and turbulent conditions, present opportunities for advancing the field. Our work specifically addresses these gaps by developing an integrated approach that leverages the strengths of both physics-based modeling and machine learning to improve the accuracy and reliability of turbulent jet simulation and control.
+
+\section{TurbTwin: An AI-Driven Digital Twin Framework for Thermal Turbulent Jet Simulation}
+
+In this section, we introduce TurbTwin, an AI-driven digital twin framework for thermal turbulent jet simulation, comprising the Physical Twin and Digital Twin. The Physical Twin is the real-world experimental setup with advanced instrumentation for data acquisition and monitoring, while the Digital Twin integrates physics-based simulations and AI-driven models for analysis and prediction. Figure \ref{fig:dt_turbulent_jet} illustrates the framework’s architecture and component interactions.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{DigitalTwin.jpg}
+    \caption{TurbTwin Architectural Framework}
+    \label{fig:dt_turbulent_jet}
+\end{figure}
+
+\subsection{Framework Architecture Overview}
+\subsubsection{ Physical Twin (Real-World System)}
+
+The Physical Twin serves as the foundational entity for the integration of cyber-physical systems, consisting of two distinct layers: the physical layer and the data acquisition and communication layer.
+
+\begin{itemize}
+    \item \textbf{Physical layer}: represents the core components of the system, including the experimental setup designed to investigate turbulent jet dynamics. This layer includes a thermally insulated cylindrical tank equipped with various measurement instruments, such as K-type thermocouples for temperature monitoring and dedicated inlet and outlet pipes for controlling fluid flow. The physical layer provides the real-world environment for the experiments.
+
+-]
+\item \textbf{Data acquisition and communication layer} : serves as a critical component that enables continuous monitoring, processing, and transmission of data between the physical layer and the virtual domain. This layer integrates a high-fidelity data acquisition system (DAQ) that collects data from a range of sensors, including thermocouples, pressure transducers, and flow meters. The system employs robust communication protocols, such as Modbus and Ethernet/IP, to ensure real-time transmission of data. This layer ensures seamless interaction between the physical and virtual systems, providing real-time insights into the experimental setup.
+
+\end{itemize}
+
+The integration of these two layers allows for precise control and observation of the physical system, with the resulting output being a detailed dataset for further analysis and modeling.
+
+
+\subsection{ Digital Twin}
+The Digital Twin represents the computational counterpart of the Physical Twin, operating as a sophisticated simulation environment that integrates physics-based models and AI-driven algorithms for predictive analysis and system optimization.
+\begin{itemize}
+\item \textbf{Simulation and computational layer}: The Virtual Twin simulates the physical system using advanced numerical models, primarily based on the Reynolds-Averaged Navier-Stokes (RANS) equations, which govern the turbulent flow dynamics within the system. To accurately represent complex flow phenomena, the simulation incorporates state-of-the-art turbulence modeling techniques, such as k-ε or Large Eddy Simulation (LES). The computational domain is typically a 2D axisymmetric model, carefully designed to mirror the geometry and operational conditions of the physical system.
+
+The simulation leverages finite volume methods (FVM) for discretization, ensuring accurate solution representation across the computational domain. Advanced numerical schemes, including segregated implicit solvers and pressure-velocity coupling algorithms, are employed to ensure robust solution convergence. The framework supports the use of  adaptive mesh refinement (AMR)  and  multi-physics coupling, enabling detailed capturing of fluid dynamics, heat transfer, and other phenomena under varying operating conditions.
+
+The simulation layer is designed to support both steady-state and transient simulations, facilitating the exploration of dynamic system responses over time. Additionally, it is equipped with automated workflows for parameter variation studies, enabling a comprehensive understanding of the system's behavior across different operational scenarios. This computational infrastructure emphasizes numerical efficiency, accuracy, and systematic validation protocols to maintain high-fidelity simulation results, bridging the gap between physical measurements and predictive modeling.
+
+
+
+
+\item \textbf{Intelligent Data Integration Layer}
+
+The Intelligent Data Integration Layer acts as a bridge between physics-based simulations and machine learning models in the digital twin framework. Its main role is to automate the generation of large-scale datasets by collecting and organizing relevant physical data from simulations. This layer ensures the consistency, quality, and traceability of the data, making it ready for analysis and integration into machine learning models.
+The process of Intelligent Data Integration enables the generation of synthetic data crucial for the development of the digital twin framework. The following steps outline the systematic approach for generating large-scale datasets, essential for integrating physics-based simulations with machine learning models.
+
+\begin{enumerate}
+    \item \textbf{Define Simulation Parameters} \\
+    Set the operational parameters, such as temperature, pressure, and fluid flow, which define the conditions under which the system operates.
+    
+    \item \textbf{Run Automated Simulations} \\
+    Execute simulations utilizing CFD models. This step involves varying key parameters to explore the different behaviors of the system under diverse operating conditions.
+    
+    \item \textbf{Activate Data Collection Pipelines} \\
+    Automatically extract relevant physical quantities, such as temperature, velocity, and pressure, from the simulation results. These data points are essential for further analysis and model training.
+    
+    \item \textbf{Ensure Data Quality} \\
+    Implement automated quality assurance mechanisms that validate the consistency, accuracy, and completeness of the collected data. This ensures high-quality data throughout the data collection process.
+    
+    \item \textbf{Store Data in Structured Formats} \\
+    Organize and store the collected data in structured and efficient formats, to facilitate easy access and retrieval for further analysis.
+    
+    \item \textbf{Automate Data Labeling and Tracking} \\
+    Label the collected data with metadata, such as simulation conditions and parameters, and track the provenance of each data point. This ensures traceability and proper context for each dataset across different simulation scenarios.
+    
+\end{enumerate}
+
+
+\item \textbf{Data Standardization Layer}
+The Data Standardization Layer is a crucial preprocessing component in the digital twin architecture, ensuring data consistency and compatibility for machine learning. It involves three primary transformations: unscaled data preservation, which maintains the original physical meaning of the data; standardization, which establishes uniform statistical properties across datasets; and normalization, which optimizes the data for improved algorithm performance. Automated pipelines are employed to ensure consistent data representation across various scales and units, allowing for seamless integration of data from physical sensors and numerical simulations. This layer plays a key role in enhancing model training by preserving data relationships while optimizing the effectiveness of machine learning models.
+
+\item \textbf{Predictive Analytics Layer}
+
+
+\item \textbf{Intelligence Decision-Making Layer}
+
+\subsection{Ensemble Learning}
+
+
+\end{itemize}
+
+\section{Evaluation and Experimental Results} \label{sec:results}
+
+This section provides an overview of the implementation and evaluation process of the proposed framework. It covers the experimental setup, including the tools and environment used, followed by a description of the datasets and their preparation. Next, the experimental results are presented, demonstrating the framework’s performance. Finally, a comparative analysis is conducted to benchmark the approach against state-of-the-art methods, highlighting its strengths.
+
+
+
+
+\subsection{ Ensemble Based Machine Learning and Deep Learning}
+
+
+
+
+
+\subsection{Experimental Setup} \label{sec:Experimentalset}
+
+\subsection{Dataset} \label{sec:DataSet}
+
+\subsection{Data Preprocessing} \label{sec:Preprocessing}
+
+\subsection{Model Performance Evaluation} \label{sec:Performance}
+
+\subsection{Comparative Analysis with Existing Methods} \label{sec:Comparative}
+
+\subsection{Case Study} \label{sec:Case}
+
+\section{Conclusions} \label{sec:Conclusions}
+
+
+
+
+
+
+
+
+
+
+
+\subsection*{Declaration of generative AI and AI-assisted technologies in the writing process:}
+During the preparation of this work, the author used ChatGPT only to improve the language and readability. After using this tool/service, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
+
+ \bibliographystyle{elsarticle-num} 
+ \bibliography{references}
+\end{document}
+
+
+
+
+The Physical Twin represents the fundamental tangible entity that serves as the cornerstone for cyber-physical system integration. This component encompasses a sophisticated experimental apparatus designed for investigating turbulent jet dynamics, comprising a thermally insulated cylindrical tank equipped with strategically positioned measurement instruments. The physical system incorporates a comprehensive sensor network, including nine K-type thermocouples distributed at various heights for temperature monitoring, alongside dedicated inlet and outlet pipes for fluid flow control. Critical to its functionality is the integration of a high-fidelity data acquisition system that enables real-time monitoring and collection of experimental parameters. The physical twin is engineered to maintain precise control over operational parameters, including fluid flow rates and inlet temperatures, while simultaneously capturing temporal evolution of system states. This experimental setup is specifically designed to facilitate continuous data streaming, ensuring robust connectivity between the physical and virtual domains. The infrastructure incorporates multiple measurement points and control mechanisms, enabling comprehensive system state monitoring and parameter adjustment capabilities.\cite{glaessgen2012digital, rosen2015importance}
+
+
+
+
+
+
+
+The Virtual Twin represents a sophisticated physics-based simulation environment that serves as the computational counterpart of the physical system within the digital twin framework. This component implements high-fidelity numerical models based on Reynolds-Averaged Navier-Stokes (RANS) equations, incorporating advanced turbulence modeling techniques to capture complex flow dynamics. The virtual representation employs a systematic computational approach utilizing finite volume methods in a 2D axisymmetric domain, strategically designed to mirror the physical twin's geometry and operating conditions. The computational infrastructure integrates sophisticated numerical schemes, including segregated implicit solvers and pressure-velocity coupling algorithms, to ensure robust solution convergence. Critical to its implementation is the incorporation of comprehensive boundary condition handling, multi-physics coupling capabilities, and adaptive mesh refinement strategies. The virtual twin architecture enables systematic parameter variation studies through automated simulation workflows, facilitating the exploration of diverse operating conditions and system responses. This computational framework is designed to maintain numerical stability while capturing essential physical phenomena, incorporating both steady-state and transient simulation capabilities. The virtual twin implementation emphasizes computational efficiency, numerical accuracy, and systematic validation protocols, establishing a robust foundation for digital twin development that bridges the gap between physical measurements and predictive modeling capabilities.
+
+
+The digital thread represents a crucial intermediary layer in the digital twin architecture, serving as the systematic bridge between physics-based simulations and machine learning implementations. This component establishes a comprehensive automated workflow for generating synthetic large-scale datasets essential for digital twin development. The infrastructure incorporates sophisticated automation protocols leveraging computational fluid dynamics (CFD) journaling capabilities and custom scripting solutions for systematic parameter space exploration. Critical to its functionality is the implementation of automated data collection pipelines that facilitate the extraction of relevant physical quantities across multiple simulation scenarios. The component architecture enables systematic variation of key operational parameters, ensuring comprehensive coverage of the system's behavior space while maintaining data consistency and quality. The data generation framework implements structured storage formats and automated labeling systems for maintaining data provenance, integrating advanced data organization strategies that ensure traceability between physical and virtual components. The design emphasizes automation efficiency, data quality assurance, and scalability, ensuring the digital thread serves as a reliable foundation for developing robust machine learning models within the digital twin framework. The implementation focuses on maintaining data integrity while facilitating seamless integration between physics-based simulations and data-driven modeling approaches.
+
+
+The Data Standardization Layer represents a fundamental preprocessing component within the digital twin architecture, serving as a critical interface between raw data acquisition and advanced machine learning implementations. This layer implements systematic data transformation methodologies essential for maintaining consistency and compatibility across the digital twin ecosystem. The component encompasses three distinct transformation approaches: unscaled data preservation for maintaining original physical meanings, standardization for establishing uniform statistical properties, and normalization for optimizing algorithm performance. Critical to its functionality is the implementation of automated transformation pipelines that ensure consistent data representation across different scales and units inherent in physical systems. The standardization architecture enables seamless integration of heterogeneous data sources, ensuring that information from both physical sensors and numerical simulations can be effectively utilized in subsequent machine learning models. This layer emphasizes mathematical rigor in data transformation, implementing statistical standardization and feature scaling methodologies that preserve data relationships while optimizing model training effectiveness. 
+
+
+\subsection{Digital Twin Validation Layer}
+
+The Digital Twin Validation Layer represents the critical evaluation component within the digital twin architecture, serving as the decisive framework for assessing the robustness and reliability of the entire digital twin system. This layer implements systematic validation protocols that evaluate the predictive capabilities of machine learning models against real experimental data that was not used during the training phase, thereby providing an authentic assessment of the digital twin's performance. The infrastructure incorporates comprehensive testing methodologies that compare model predictions with physical measurements, enabling quantitative evaluation of prediction accuracy across various operational conditions. Critical to its functionality is the implementation of rigorous validation procedures that assess the digital twin's ability to generalize beyond its training domain, ensuring reliable performance in real-world applications. The validation architecture enables systematic assessment of model predictions against experimental measurements, providing crucial insights into the digital twin's predictive capabilities and limitations. This layer emphasizes the importance of independent validation using previously unseen experimental data, implementing thorough testing protocols that verify the digital twin's ability to capture complex system behaviors accurately. The design philosophy focuses on establishing confidence in the digital twin's predictions through rigorous validation against physical measurements, ensuring the framework's reliability for real-world applications. Implementation strategy prioritizes comprehensive performance assessment and validation metrics, establishing the fundamental basis for trust in the digital twin's predictive capabilities.
+
+
+The Predictive Analytics Layer constitutes a sophisticated machine learning infrastructure within the digital twin architecture, serving as the intelligent decision-making component that bridges physics-based simulations with real-time predictions. This layer implements an ensemble of advanced machine learning methodologies, encompassing both traditional statistical approaches and modern artificial intelligence techniques, designed to capture complex system behaviors and enable predictive capabilities. The infrastructure integrates multiple algorithmic paradigms: classical Linear Regression for baseline modeling and trend analysis, k-Nearest Neighbors (k-NN) for pattern recognition in operational states, Artificial Neural Networks (ANNs) for capturing nonlinear system dynamics, Support Vector Regression (SVR) for robust prediction in high-dimensional spaces, and ensemble methods including Random Forests (RF), Gradient Boosting Machines (GBM), and XGBoost for enhanced prediction accuracy through model aggregation. Critical to its functionality is the synergistic implementation of these diverse algorithms, each carefully selected to address specific aspects of the system's behavioral prediction requirements. The predictive analytics architecture enables systematic model selection, training, and validation procedures, ensuring reliable performance across the digital twin's operational envelope. The design philosophy emphasizes algorithmic diversity and model complementarity while maintaining computational efficiency, establishing a robust foundation for real-time decision support within the digital twin framework. Implementation strategy prioritizes model ensemble integration and adaptive learning capabilities across diverse operational scenarios, enabling comprehensive system behavior prediction and performance optimization.
+
+
+
+�� 1. Physical Twin (Real-world Component)
+
+The physical part represents the actual turbine system and its measured physical behavior — the ground truth foundation of your digital counterpart. It captures the governing physics, boundary conditions, and environmental parameters.
+
+1.1 Experimental Setup (Data Acquisition Layer)
+
+Constructed a turbulent jet experimental rig that mimics turbine exhaust conditions.
+
+Deployed temperature, velocity, and pressure sensors at critical spatial points.
+
+Captured real-time thermal and flow data for various operational conditions (e.g., jet velocity, inlet temperature, nozzle geometry).
+
+These sensor measurements provide ground truth physical data for calibration and validation of the simulation and ML models.
+
+1.2 Mathematical Simulation (Physics-based Model Layer)
+
+Developed a Computational Fluid Dynamics (CFD) model of the turbulent jet using the Navier–Stokes equations and energy conservation laws.
+
+Simulated the temperature distribution and flow field under controlled boundary conditions.
+
+This simulation provides high-resolution synthetic data that represent the physical laws and constraints of the system, acting as a virtual proxy of the experiment.
+
+1.3 Validation Phase (Model-Physical Coupling)
+
+The CFD results were validated against the experimental sensor measurements, ensuring physical fidelity and numerical accuracy.
+
+Quantitative validation metrics such as RMSE, R², and temperature deviation (%) were computed to verify that the virtual physics model reproduces real-world dynamics accurately.
+
+�� 2. Digital Twin (Data-Driven Computational Component)
+
+The digital part extends the physical twin into a computational intelligence model capable of prediction, generalization, and adaptive learning. It integrates both the physics-informed constraints and the data-driven learning capabilities.
+
+2.1 Synthetic Dataset Generation (Simulation-driven Data Augmentation)
+
+Generated a large synthetic dataset from the validated CFD simulations under multiple parametric variations.
+
+This dataset serves as the training domain for machine learning, encapsulating the underlying physics in diverse operating conditions.
+
+2.2 Physics-Informed Machine Learning Model (PI-ML Core)
+
+Designed a Physics-Informed Neural Network (PINN) or Physics-Informed ML framework that embeds the governing equations (momentum, continuity, and energy equations) into the loss function.
+
+The model learns not only from the data but also respects the physical constraints of the turbulent flow and thermal field.
+
+This enables generalization to unseen real-world conditions and robustness to sparse or noisy data.
+
+2.3 Evaluation and Generalization (Digital Validation Layer)
+
+Evaluated the trained PI-ML model on experimental (real-world) measurements to assess cross-domain generalization.
+
+Demonstrated that the physics-informed approach significantly reduces error and maintains physical consistency when predicting turbine temperature fields.
+
+This stage closes the twin feedback loop — where the digital twin continuously learns from and refines predictions based on new physical observations.
+
+⚙️ Summary Table: Twin Architecture
+Twin Component	Stage	Main Objective	Output
+Physical Twin	Experimental Setup	Capture real physical behavior	Sensor-based thermal data
+	Mathematical Simulation	Reproduce system physics via CFD	Simulated flow & temperature fields
+	Validation	Align simulation with real experiment	Physically validated model
+Digital Twin	Synthetic Data Generation	Create diverse data domain	CFD-derived synthetic dataset
+	PI-ML Model	Learn physics-consistent mapping	Trained physics-informed model
+	Evaluation	Assess model generalization	Accurate turbine temperature predictions
+
+Would you like me to illustrate this as a Digital Twin framework diagram (with arrows showing flow b

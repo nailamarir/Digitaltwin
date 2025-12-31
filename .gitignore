@@ -1,12 +1,110 @@
-# OS/editor
+# =========================
+# OS Generated Files
+# =========================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =========================
+# IDE / Editor
+# =========================
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.code-workspace
 
+# =========================
 # Python
+# =========================
 __pycache__/
-*.pyc
-.venv/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Data artifacts (keep raw/sample data in dataset/)
+# Virtual Environments
+venv/
+.venv/
+ENV/
+env/
+.env
+
+# =========================
+# Jupyter Notebooks
+# =========================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# =========================
+# LaTeX
+# =========================
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.pdfsync
+*.nav
+*.snm
+*.vrb
+
+# =========================
+# Project Specific
+# =========================
+# Temporary outputs
 outputs/
 runs/
+temp/
+tmp/
+
+# Model checkpoints (large files)
+*.h5
+*.hdf5
+*.pkl
+*.joblib
+checkpoints/
+
+# Large data files (keep sample data)
+*.csv.gz
+*.parquet
+
+# Logs
+logs/
+*.log
+
+# =========================
+# Secrets / Credentials
+# =========================
+.env
+.env.local
+*.pem
+*.key
+credentials.json
