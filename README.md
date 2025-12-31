@@ -58,10 +58,6 @@ TurbTwin/
 │   └── visualization/           # Plotting utilities
 │       ├── __init__.py
 │       └── plots.py             # Results visualization
-├── src/                         # Legacy source code
-│   ├── dt.py                    # Original ensemble implementation
-│   ├── dtensemble.py            # Deep ensemble implementation
-│   └── digitaltwinensemble.py   # CNN + LSTM + PINN ensemble
 ├── examples/                    # Example scripts
 │   ├── basic_usage.py           # Basic usage example
 │   └── advanced_usage.py        # Advanced features example
